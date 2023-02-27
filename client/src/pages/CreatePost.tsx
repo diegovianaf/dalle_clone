@@ -26,7 +26,9 @@ const CreatePost = (): JSX.Element => {
     e.preventDefault()
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
@@ -38,12 +40,10 @@ const CreatePost = (): JSX.Element => {
   return (
     <section className='max-w=7-l mx-auto'>
       <div>
-        <h1 className='font-extrabold text-slate-900 text-3xl'>
-          Create
-        </h1>
+        <h1 className='font-extrabold text-slate-900 text-3xl'>Create</h1>
         <p className='mt-2 text-slate-600 text-base max-w-lg'>
-          Create imaginative and visually stunning
-          images through DALL-E AI and share them with the community.
+          Create imaginative and visually stunning images through DALL-E AI and
+          share them with the community.
         </p>
       </div>
 
@@ -104,7 +104,8 @@ const CreatePost = (): JSX.Element => {
 
         <div className='mt-10'>
           <p className='mt-2 text-gray-500'>
-            Once you have created the image you want, you can share it with others in the community.
+            Once you have created the image you want, you can share it with
+            others in the community.
           </p>
           <button
             type='submit'

@@ -4,7 +4,9 @@ type FormFieldProps = {
   name: string
   placeholder: string
   value: string
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void
   isSurpriseMe?: boolean
   handleSurpriseMe?: () => void
 }
@@ -18,7 +20,7 @@ const FormField = (props: FormFieldProps) => {
     value,
     handleChange,
     isSurpriseMe,
-    handleSurpriseMe
+    handleSurpriseMe,
   } = props
 
   return (
