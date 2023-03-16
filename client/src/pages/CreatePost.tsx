@@ -20,6 +20,17 @@ const CreatePost = (): JSX.Element => {
   const [generatingImg, setGeneratingImg] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
+  const handleSurpriseMe = () => {
+    const randomPrompt = getRandomPrompt(form.prompt)
+    setForm({ ...form, prompt: randomPrompt })
+  }
+
   const generateImage = async () => {
     if (form.prompt) {
       try {
@@ -46,19 +57,32 @@ const CreatePost = (): JSX.Element => {
     }
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-  }
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
+    if (form.prompt && form.photo) {
+      setLoading(true)
 
-  const handleSurpriseMe = () => {
-    const randomPrompt = getRandomPrompt(form.prompt)
-    setForm({ ...form, prompt: randomPrompt })
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/post', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ ...form })
+        })
+
+        await response.json()
+        alert('Success')
+        navigate('/')
+      } catch (err) {
+        alert(err)
+      } finally {
+        setLoading(false)
+      }
+    } else {
+      alert('Please generate an image with proper details')
+    }
   }
 
   return (
@@ -77,7 +101,7 @@ const CreatePost = (): JSX.Element => {
             labelName='Your name'
             type='text'
             name='name'
-            placeholder='John Doe'
+            placeholder='Ex., John Doe'
             value={form.name}
             handleChange={handleChange}
           />
